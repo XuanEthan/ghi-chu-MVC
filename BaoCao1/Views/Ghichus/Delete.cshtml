@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+}
+@model Ghichu
+<div class="modal-dialog modal-lg modal-dialog-centered">
+    <form class="modal-content" asp-action="Delete" asp-controller="Ghichus" method="post">
+        <h1>Bạn muốn xóa ghi chú này ?</h1>
+        @Html.AntiForgeryToken()
+        <div class="modal-header border-0">
+            <input type="text" id="noteId" name="Id" class="form-control form-control-lg border-0 fw-bold fs-3" placeholder="Tiêu đề..." style="box-shadow: none" value="@Model.Id" hidden readonly />
+        </div>
+        <div class="modal-header border-0">
+            <input type="text" id="noteTitle" name="Tieude" class="form-control form-control-lg border-0 fw-bold fs-3" placeholder="Tiêu đề..." style="box-shadow: none" value="@Model.Tieude" readonly/>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <textarea asp-for="Noidung" id="noteContent" name="Noidung" class="form-control border-0 fs-5" rows="8" placeholder="Nội dung..." style="box-shadow: none; resize: none" readonly></textarea>
+        </div>
+        <div class="modal-footer border-0">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn-primary px-4">Lưu</button>
+        </div>
+    </form>
+</div>

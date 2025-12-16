@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "_GhichuLayout";
+    var count = ViewBag.TotalCount as string;
+}
+@model List<Ghichu>
+<h5 class="text-muted mb-3">Gần đây</h5>
+
+<div class="row g-3">
+    @foreach(var item in Model)
+    {
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card note-card p-3">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="card-title fw-bold mb-0 text-truncate" style="max-width: 80%;">@item.Tieude</h5>
+
+                    <div class="dropdown note-actions">
+                        <button class="btn btn-sm btn-link text-secondary p-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-three-dots-vertical fs-5"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                            <li><a class="dropdown-item" href="#" onclick="getEditForm(@item.Id)"><i class="bi bi-pencil me-2 text-primary"></i>Sửa</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#" onclick="getConfirmDeleteItem(@item.Id)"><i class="bi bi-trash3 me-2"></i>Xóa</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="card-text text-secondary text-truncate">
+                    @item.Noidung
+                </p>
+                <div class="mt-auto d-flex justify-content-between align-items-center">
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+

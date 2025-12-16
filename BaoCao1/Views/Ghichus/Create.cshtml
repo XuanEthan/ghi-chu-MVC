@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="modal-dialog modal-lg modal-dialog-centered">
+    <form class="modal-content" asp-action="Create" asp-controller="Ghichus" method="post">
+        @Html.AntiForgeryToken()
+        <div class="modal-header border-0">
+            <input type="text" id="noteTitle" name="Tieude" class="form-control form-control-lg border-0 fw-bold fs-3" placeholder="Tiêu đề..." style="box-shadow: none" />
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <textarea id="noteContent" name="Noidung" class="form-control border-0 fs-5" rows="8" placeholder="Nội dung..." style="box-shadow: none; resize: none"></textarea>
+        </div>
+        <div class="modal-footer border-0">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn-primary px-4">Lưu</button>
+        </div>
+    </form>
+</div>
