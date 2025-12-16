@@ -52,7 +52,7 @@
     function saveData(){
         var formData = getFormData($('form'));
         $.post(
-            "@(action == 1 ? "/Ghichus/Create" : "/Ghichus/Edit")", {obj:formData},
+            "@(action == 1 ? "/Ghichus/Create" : "/Ghichus/Edit")", formData,
             function(response){
                 console.log(response);
             }

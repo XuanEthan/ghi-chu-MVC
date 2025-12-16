@@ -34,7 +34,6 @@ namespace BaoCao1.Controllers
             return PartialView();
         }
 
-        // GET: GhichusController/Create
         //[Route("/Ghichus/Create")]
         [HttpGet]
         public ActionResult Create()
@@ -49,9 +48,7 @@ namespace BaoCao1.Controllers
         [Route("/Ghichus/Create")]
         public async Task<IActionResult> Create([FromBody] Ghichu formData)
         {
-           //return Json{
-           //     await _ghichuService.Insert(formData)
-           // }
+            return Json(await _ghichuService.Insert(formData));
         }
 
         // GET: GhichusController/Edit/5
@@ -64,58 +61,18 @@ namespace BaoCao1.Controllers
             return PartialView("Edit", res);
         }
 
-        // POST: GhichusController/Edit/5
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(IFormCollection collection)
+        public async Task<ActionResult> Edit(Ghichu formData)
         {
-            //try
-            //{
-            //    var res = await _ghichuService.Update(new Ghichu { Id = long.Parse(collection["Id"]) , Tieude = collection["Tieude"] , Noidung = collection["Noidung"] });
-            //    if (res != null)
-            //    {
-            //        return RedirectToAction("Index");
-            //    }
-            //    else
-            //    {
-            //        return View("Error", new ErrorViewModel { Message = "Sửa không thành công . Hãy thử lại lần sau!" });
-            //    }
-            //}
-            //catch(Exception ex)
-            //{
-            //    return View("Error", new ErrorViewModel { Message = "Sửa không thành công . Hãy thử lại lần sau!" });
-            //}
+          return Json(await _ghichuService.Update(formData));
         }
 
-        [HttpGet]
-        [Route("/Ghichus/Delete/{id}")]
-        public async Task<IActionResult> ConfirmDelete(long id)
-        {
-            var ghichu = await _ghichuService.GetById(id);
-            return PartialView("Delete" , ghichu);
-        }
-        
-        // POST: GhichusController/Delete/5
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(IFormCollection collection)
+        public async Task<IActionResult> Delete(long id)
         {
-            //try
-            //{
-            //    var res = await _ghichuService.Delete(long.Parse(collection["Id"]));
-            //    if (res > 0)
-            //    {
-            //        return RedirectToAction("Index");
-            //    }
-            //    else
-            //    {
-            //        return View("Error", new ErrorViewModel { Message = "Xóa không thành công . Hãy thử lại lần sau !" });
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    return View("Error", new ErrorViewModel { Message = ex.Message });
-            //}
+            return Json(await _ghichuService.Delete(id));
         }
     }
 }

@@ -23,10 +23,16 @@
             switch(code)
             {
                 case ResultCode.Ok:
-                    msg = "Thao tác thành công";
+                    msg = "Thao tác thành công. ";
                     break;
                 case ResultCode.NotOk:
-                    msg = "Thao tác không thành công. " + errorMsg;
+                    msg = "Thao tác không thành công. ";
+                    break;
+                case ResultCode.Da_ton_tai:
+                    msg = "Ghi chú đã tồn tại. ";
+                    break;
+                case ResultCode.Khong_ton_tai:
+                    msg = "Ghi chú không tồn tại. ";
                     break;
                 default:
                     msg = "";
@@ -39,6 +45,8 @@
         {
             Ok = 0, 
             NotOk = 1,
+            Da_ton_tai = 2,
+            Khong_ton_tai = 3,
         }
 
     }

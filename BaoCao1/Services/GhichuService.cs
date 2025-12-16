@@ -11,35 +11,49 @@ namespace BaoCao1.Services
             return await db.SelectAsync<Ghichu>();
         }
 
-        public async Task<Ghichu> GetById(long id)
+        public async Task<ResultModel> GetById(long id)
         {
             using var db = _ormLiteConnectionFactory.OpenDbConnection();
-            return await db.SingleByIdAsync<Ghichu>(id);
+            var found = db.SingleById<Ghichu>(id);
+            if (found == null) { 
+                return new ResultModel(false , ResultModel.ResultCode.NotOk , ResultModel.BuildMessage(ResultModel.ResultCode.Ok));
+            }
+            return new ResultModel(true, ResultModel.ResultCode.Ok, ResultModel.BuildMessage(ResultModel.ResultCode.Ok), found.Id , found);
         }
 
         public async Task<ResultModel> Insert(Ghichu ghichu)
         {
-            //using var db = _ormLiteConnectionFactory.OpenDbConnection();
-            //var affected = await db.InsertAsync(ghichu);
-            //if(affected <= 0)
-            //{
-            //    return new ResultModel(false, ResultModel.ResultCode.NotOk, ResultModel.BuildMessage(ResultModel.ResultCode.NotOk), affected);
-            //}
-            //return new ResultModel(true, ResultModel.ResultCode.Ok, ResultModel.BuildMessage(ResultModel.ResultCode.Ok), affected);
+            using var db = _ormLiteConnectionFactory.OpenDbConnection();
+            // validate logic ...
+            var newNote = initEmpty();
+            newNote.Id = ghichu.Id;
+            newNote.Tieude = ghichu.Tieude;
+            newNote.Noidung = ghichu.Noidung;
+
+            await db.InsertAsync(newNote);
+            return new ResultModel(true , ResultModel.ResultCode.Ok , ResultModel.BuildMessage(ResultModel.ResultCode.Ok));
         }
 
         public async Task<ResultModel> Update(Ghichu ghichu)
         {
-            //using var db = _ormLiteConnectionFactory.OpenDbConnection();
-            //await db.UpdateAsync(ghichu);
-            //return await GetById(ghichu.Id);
+            using var db = _ormLiteConnectionFactory.OpenDbConnection();
+            var found = db.SingleById<Ghichu>(ghichu.Id);
+            if (found == null) { return new ResultModel(false, ResultModel.ResultCode.NotOk, ResultModel.BuildMessage(ResultModel.ResultCode.NotOk)); }
+            found.Tieude = ghichu.Tieude;
+            found.Noidung = ghichu.Noidung;
+            await db.UpdateAsync(found);
+            return new ResultModel(true , ResultModel.ResultCode.Ok , ResultModel.BuildMessage (ResultModel.ResultCode.Ok) , found.Id , found);
         }
 
         public async Task<ResultModel> Delete(long id)
         {
-            //using var db = _ormLiteConnectionFactory.OpenDbConnection();
-            //var affeced = await db.DeleteByIdAsync<Ghichu>(id);
-            //return affeced;
+            using var db = _ormLiteConnectionFactory.OpenDbConnection();
+            var isExist = db.SingleById<Ghichu>(id);
+            if (isExist == null) {
+                return new ResultModel(false, ResultModel.ResultCode.Khong_ton_tai, ResultModel.BuildMessage(ResultModel.ResultCode.Khong_ton_tai));
+            }
+            await db.DeleteAsync(id);
+            return new ResultModel(true , ResultModel.ResultCode.Ok , ResultModel.BuildMessage(ResultModel.ResultCode.Ok), id);
         }
 
         public static Ghichu initEmpty()
