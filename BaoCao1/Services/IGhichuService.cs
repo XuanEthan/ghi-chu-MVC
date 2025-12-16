@@ -5,10 +5,10 @@ namespace BaoCao1.Services
     public interface IGhichuService
     {
         Task<List<Ghichu>> GetAllitems();
-        Task<Ghichu> GetById(long id);
-        Task<long> Insert(Ghichu ghichu);
-        Task<Ghichu> Update(Ghichu ghichu);
-        Task<int> Delete(long id);
+        Task<ResultModel> GetById(long id);
+        Task<ResultModel> Insert(Ghichu ghichu);
+        Task<ResultModel> Update(Ghichu ghichu);
+        Task<ResultModel> Delete(long id);
 
     }
 }

@@ -1,13 +1,18 @@
 ﻿@{
     Layout = null;
+    var action = int.Parse(ViewBag.Action);
 }
 
 @model Ghichu
 <div class="modal-dialog modal-lg modal-dialog-centered">
-    <form class="modal-content" asp-action="Edit" asp-controller="Ghichus" method="post">
+    <form class="modal-content" action="javascript:void();">
         @Html.AntiForgeryToken()
         <div class="modal-header border-0">
-            <input type="text" id="noteId" name="Id" class="form-control form-control-lg border-0 fw-bold fs-3" placeholder="Tiêu đề..." style="box-shadow: none" value="@Model.Id" hidden />
+            <h2>
+                @(
+                    action == 1 ? "Thêm ghi chú" : "Chỉnh sửa ghi chú" 
+                )
+            </h2>
         </div>
         <div class="modal-header border-0">
             <input type="text" id="noteTitle" name="Tieude" class="form-control form-control-lg border-0 fw-bold fs-3" placeholder="Tiêu đề..." style="box-shadow: none" value="@Model.Tieude"/>
@@ -15,10 +20,42 @@
         </div>
         <div class="modal-body">
             <textarea asp-for="@Model.Noidung" id="noteContent" name="Noidung" class="form-control border-0 fs-5" rows="8" placeholder="Nội dung..." style="box-shadow: none; resize: none"></textarea>
+            <input type="text" id="noteId" name="Id" class="form-control form-control-lg border-0 fw-bold fs-3" style="box-shadow: none" value="@Model.Id" hidden />
         </div>
         <div class="modal-footer border-0">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            <button type="submit" class="btn btn-primary px-4">Lưu</button>
+            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            @{
+                if (action == 1)
+                {
+                    <button type="submit" onclick="saveData()" class="btn btn-primary px-4">Thêm mới</button>
+                }
+                else
+                {
+                    <button type="submit" onclick="saveData()" class=" btn btn-primary px-4">Lưu</button>
+                }
+            }
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+        function getFormData($form) {
+        var unindexed_array = $form.serializeArray();
+        var indexed_array = {};
+
+        $.map(unindexed_array, function (n, i) {
+            indexed_array[n['name']] = n['value'];
+        });
+        return indexed_array;
+    }
+
+    function saveData(){
+        var formData = getFormData($('form'));
+        $.post(
+            "@(action == 1 ? "/Ghichus/Create" : "/Ghichus/Edit")", {obj:formData},
+            function(response){
+                console.log(response);
+            }
+        );
+    }
+</script>
