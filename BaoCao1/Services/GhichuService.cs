@@ -1,14 +1,27 @@
 ﻿using BaoCao1.Models;
 using ServiceStack.OrmLite;
+using System.Data;
 
 namespace BaoCao1.Services
 {
     public class GhichuService : BaseService, IGhichuService
     {
-        public async Task<List<Ghichu>> GetAllitems()
+        public SqlExpression<Ghichu> QueryGetAllItem(IDbConnection db , Ghichu_TimkiemModel filter)
+        {
+            var query = db.From<Ghichu>();
+            if (!string.IsNullOrEmpty (filter.search))
+            {
+                query = query.Where(q => q.Tieude.Contains(filter.search) || q.Noidung.Contains(filter.search));
+            }
+            return query;
+        }
+
+        public async Task<List<Ghichu>> GetAllitems(Ghichu_TimkiemModel filter)
         {
             using var db = _ormLiteConnectionFactory.OpenDbConnection();
-            return await db.SelectAsync<Ghichu>();
+            var query = QueryGetAllItem(db , filter);
+            var list = await db.SelectAsync(query);
+            return list;
         }
 
         public async Task<ResultModel> GetById(long id)

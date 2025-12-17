@@ -255,11 +255,12 @@
         });
     }
 
-    function getList(){
+    function getList(search){
         $.ajax({
             url : "/Ghichus/List",
             type: "GET",
             async : true,
+            data: { search: search },
             success: function (response) {
                 $('.content').html(response);
             },
@@ -270,7 +271,11 @@
     }
 
     document.addEventListener("DOMContentLoaded", function(){
-        getList();
+       getList();
+
+       $('.search-input').on('input' ,function(){
+           getList($(this).val());
+        })
     });
 
 </script>

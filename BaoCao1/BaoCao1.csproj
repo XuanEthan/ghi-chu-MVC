@@ -16,4 +16,8 @@
     <PackageReference Include="ServiceStack.OrmLite.SqlServer" Version="10.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Accounts\" />
+  </ItemGroup>
+
 </Project>

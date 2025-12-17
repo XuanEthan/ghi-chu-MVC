@@ -2,6 +2,7 @@
 using BaoCao1.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.WebSockets;
 using System.Threading.Tasks;
 
 namespace BaoCao1.Controllers
@@ -22,9 +23,10 @@ namespace BaoCao1.Controllers
 
         [HttpGet]
         [Route("/Ghichus/List")]
-        public async Task<ActionResult> List()
+        public async Task<ActionResult> List(string? search)
         {
-            var list = await _ghichuService.GetAllitems();
+            var filter = new Ghichu_TimkiemModel {search = search};
+            var list = await _ghichuService.GetAllitems(filter);
 
             return PartialView("List" , list);
         }
