@@ -7,7 +7,7 @@ namespace BaoCao1.Models
     {
         [AutoIncrement]
         public long Id { get; set; }
-        public string Tieude { get; set; } = "Tieu de";
-        public string Noidung { get; set; } = "Ghi chu";
+        public string? Tieude { get; set; } = string.Empty;
+        public string? Noidung { get; set; } = string.Empty;
     }
 }

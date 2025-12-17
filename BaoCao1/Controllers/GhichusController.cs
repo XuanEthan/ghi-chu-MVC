@@ -46,9 +46,9 @@ namespace BaoCao1.Controllers
         // POST: GhichusController/Create
         [HttpPost]
         [Route("/Ghichus/Create")]
-        public async Task<IActionResult> Create([FromBody] Ghichu formData)
+        public async Task<IActionResult> Create(Ghichu ghichu)
         {
-            return Json(await _ghichuService.Insert(formData));
+            return Json(await _ghichuService.Insert(ghichu));
         }
 
         // GET: GhichusController/Edit/5
@@ -58,7 +58,7 @@ namespace BaoCao1.Controllers
         {
             var res = await _ghichuService.GetById(id);
             ViewBag.Action = "2";
-            return PartialView("Edit", res);
+            return PartialView("Edit", res.Object);
         }
 
         [HttpPost]
@@ -69,6 +69,7 @@ namespace BaoCao1.Controllers
         }
 
         [HttpPost]
+        [Route("/Ghichus/Delete/{id}")]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(long id)
         {

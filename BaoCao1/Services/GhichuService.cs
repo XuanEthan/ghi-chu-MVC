@@ -27,8 +27,8 @@ namespace BaoCao1.Services
             // validate logic ...
             var newNote = initEmpty();
             newNote.Id = ghichu.Id;
-            newNote.Tieude = ghichu.Tieude;
-            newNote.Noidung = ghichu.Noidung;
+            newNote.Tieude = string.IsNullOrEmpty(ghichu.Tieude) ? "" : ghichu.Tieude;
+            newNote.Noidung = string.IsNullOrEmpty(ghichu.Noidung) ? "" : ghichu.Noidung;
 
             await db.InsertAsync(newNote);
             return new ResultModel(true , ResultModel.ResultCode.Ok , ResultModel.BuildMessage(ResultModel.ResultCode.Ok));
@@ -48,12 +48,12 @@ namespace BaoCao1.Services
         public async Task<ResultModel> Delete(long id)
         {
             using var db = _ormLiteConnectionFactory.OpenDbConnection();
-            var isExist = db.SingleById<Ghichu>(id);
-            if (isExist == null) {
+            var found = db.SingleById<Ghichu>(id);
+            if (found == null) {
                 return new ResultModel(false, ResultModel.ResultCode.Khong_ton_tai, ResultModel.BuildMessage(ResultModel.ResultCode.Khong_ton_tai));
             }
-            await db.DeleteAsync(id);
-            return new ResultModel(true , ResultModel.ResultCode.Ok , ResultModel.BuildMessage(ResultModel.ResultCode.Ok), id);
+            await db.DeleteAsync<Ghichu>(found);
+            return new ResultModel(true , ResultModel.ResultCode.Ok , ResultModel.BuildMessage(ResultModel.ResultCode.Ok), id , found.Id);
         }
 
         public static Ghichu initEmpty()
