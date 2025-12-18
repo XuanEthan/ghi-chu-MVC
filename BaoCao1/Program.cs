@@ -1,3 +1,4 @@
+using BaoCao1.Extensions;
 using BaoCao1.Services.Repos;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,12 +29,11 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSession();
 
+app.UseCustomAuthentication();
 app.UseRouting();
 
-app.UseAuthorization();
-
-app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

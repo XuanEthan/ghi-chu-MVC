@@ -10,7 +10,7 @@ namespace BaoCao1.Controllers
     {
         private IUserService _userService;
         private readonly ILogger<AccountsController> _logger;
-        public AccountsController(IUserService userService , ILogger<AccountsController> logger)
+        public AccountsController(IUserService userService, ILogger<AccountsController> logger)
         {
             _userService = userService;
             _logger = logger;
@@ -49,6 +49,14 @@ namespace BaoCao1.Controllers
                 return Json(result);
             }
             return Json(result);
+        }
+
+
+        [Route("/Accounts/Logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Accounts");
         }
     }
 }
