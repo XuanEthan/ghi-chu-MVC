@@ -34,6 +34,12 @@
                 case ResultCode.Khong_ton_tai:
                     msg = "Ghi chú không tồn tại. ";
                     break;
+                case ResultCode.Ten_Tai_khoan_da_dc_su_dung:
+                    msg = "Tên tài khoản đã được sử dụng. ";
+                    break;
+                case ResultCode.Tai_khoan_hoac_mat_khau_khong_dung:
+                    msg = "Tên tài khoản hoặc mật khẩu không đúng. ";
+                    break;
                 default:
                     msg = "";
                     break;
@@ -47,6 +53,8 @@
             NotOk = 1,
             Da_ton_tai = 2,
             Khong_ton_tai = 3,
+            Ten_Tai_khoan_da_dc_su_dung = 4,
+            Tai_khoan_hoac_mat_khau_khong_dung = 5,
         }
 
     }

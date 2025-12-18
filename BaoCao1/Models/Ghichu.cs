@@ -10,6 +10,7 @@ namespace BaoCao1.Models
         public long Id { get; set; }
         public string? Tieude { get; set; } = string.Empty;
         public string? Noidung { get; set; } = string.Empty;
+        public long UserId { get; set; }
     }
 
     public class Ghichu_TimkiemModel

@@ -6,11 +6,21 @@ namespace BaoCao1.Models
     public class User
     {
         [AutoIncrement]
-        public int UserId { get; set; }
+        public long Id { get; set; }
 
         public string UserName { get; set; }
 
-        public string Password { get; set; }
+        public string HashedPassword { get; set; }
+    }
 
+    public class User_RegisterModel
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
+    }
+    
+    public class User_TimkiemModel
+    {
     }
 }
