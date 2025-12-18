@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Accounts\" />
+    <Folder Include="wwwroot\lib\Scripts\" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using BaoCao1.Models;
 
-namespace BaoCao1.Services
+namespace BaoCao1.Services.Repos
 {
     public interface IGhichuService
     {

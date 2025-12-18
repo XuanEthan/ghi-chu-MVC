@@ -1,0 +1,21 @@
+﻿
+@{
+    Layout = "_AuthLayout";
+}
+
+<div class="card shadow-sm" style="width: 360px;">
+    <div class="card-body">
+        <h5 class="text-center mb-3">Tạo tài khoản</h5>
+        <form action="javascript:void()">
+            <input class="form-control mb-3" name="UserName" placeholder="Tên người sử dụng">
+            <input type="password" class="form-control mb-3" name="Password" placeholder="Mật khẩu">
+            <input type="password" class="form-control mb-3" name="ConfirmPassword" placeholder="Xác nhận mật khẩu">
+
+            <button class="btn btn-success w-100" onclick="register()">Đăng ký</button>
+
+            <div class="text-center mt-3">
+                <a href="/Accounts/Login">Already have an account?</a>
+            </div>
+        </form>
+    </div>
+</div>

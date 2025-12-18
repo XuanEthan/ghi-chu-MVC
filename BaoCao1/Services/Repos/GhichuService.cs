@@ -2,7 +2,7 @@
 using ServiceStack.OrmLite;
 using System.Data;
 
-namespace BaoCao1.Services
+namespace BaoCao1.Services.Repos
 {
     public class GhichuService : BaseService, IGhichuService
     {
@@ -65,7 +65,7 @@ namespace BaoCao1.Services
             if (found == null) {
                 return new ResultModel(false, ResultModel.ResultCode.Khong_ton_tai, ResultModel.BuildMessage(ResultModel.ResultCode.Khong_ton_tai));
             }
-            await db.DeleteAsync<Ghichu>(found);
+            await db.DeleteAsync(found);
             return new ResultModel(true , ResultModel.ResultCode.Ok , ResultModel.BuildMessage(ResultModel.ResultCode.Ok), id , found.Id);
         }
 

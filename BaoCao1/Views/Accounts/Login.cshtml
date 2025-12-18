@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "_AuthLayout";
+}
+<div class="card shadow-sm" style="width: 360px;">
+    <div class="card-body">
+        <h5 class="text-center mb-3">Xin chào</h5>
+
+        <form action="javascript:void();">
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <input id="UserName" name="UserName" class="form-control" placeholder="Tên người sử dụng">
+            </div>
+
+            <div class="mb-3">
+                <input type="password" name="Password" class="form-control" placeholder="Mật khẩu">
+            </div>
+
+            <button class="btn btn-primary w-100" onclick="login()" >Đăng nhập</button>
+
+            <div class="text-center mt-3">
+                <a href="/Accounts/Register">Tạo tài khoản</a>
+            </div>
+        </form>
+    </div>
+</div>

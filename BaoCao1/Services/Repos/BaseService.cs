@@ -1,6 +1,6 @@
 ﻿using ServiceStack.OrmLite;
 
-namespace BaoCao1.Services
+namespace BaoCao1.Services.Repos
 {
     public class BaseService
     {
@@ -19,6 +19,5 @@ namespace BaoCao1.Services
             _ormLiteConnectionFactory = new OrmLiteConnectionFactory(_connectionString, OrmLiteConfig.DialectProvider);
             OrmLiteConfig.DialectProvider.GetStringConverter().UseUnicode = true;
         }
-
     }
 }
