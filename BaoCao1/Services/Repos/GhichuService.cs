@@ -13,6 +13,10 @@ namespace BaoCao1.Services.Repos
             {
                 query = query.Where(q => q.Tieude.Contains(filter.search) || q.Noidung.Contains(filter.search));
             }
+            if (filter.userId > 0)
+            {
+                query = query.Where(q => q.UserId == filter.userId);
+            }
             return query;
         }
 
@@ -42,6 +46,7 @@ namespace BaoCao1.Services.Repos
             newNote.Id = ghichu.Id;
             newNote.Tieude = string.IsNullOrEmpty(ghichu.Tieude) ? "" : ghichu.Tieude;
             newNote.Noidung = string.IsNullOrEmpty(ghichu.Noidung) ? "" : ghichu.Noidung;
+            newNote.UserId = ghichu.UserId;
 
             await db.InsertAsync(newNote);
             return new ResultModel(true , ResultModel.ResultCode.Ok , ResultModel.BuildMessage(ResultModel.ResultCode.Ok));

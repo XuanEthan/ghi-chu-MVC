@@ -1,4 +1,5 @@
 ﻿using BaoCao1.Models;
+using BaoCao1.Services.Base;
 using BaoCao1.Services.Repos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,8 @@ namespace BaoCao1.Controllers
         [Route("/Ghichus/List")]
         public async Task<ActionResult> List(string? search)
         {
-            var filter = new Ghichu_TimkiemModel {search = search};
+            
+            var filter = new Ghichu_TimkiemModel {search = search , userId = UserContext.getUserId(HttpContext)};
             var list = await _ghichuService.GetAllitems(filter);
 
             return PartialView("List" , list);
@@ -50,6 +52,7 @@ namespace BaoCao1.Controllers
         [Route("/Ghichus/Create")]
         public async Task<IActionResult> Create(Ghichu ghichu)
         {
+            ghichu.UserId = UserContext.getUserId(HttpContext);
             return Json(await _ghichuService.Insert(ghichu));
         }
 
@@ -67,7 +70,8 @@ namespace BaoCao1.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Ghichu formData)
         {
-          return Json(await _ghichuService.Update(formData));
+            formData.UserId = UserContext.getUserId(HttpContext);
+            return Json(await _ghichuService.Update(formData));
         }
 
         [HttpPost]

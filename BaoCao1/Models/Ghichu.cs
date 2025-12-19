@@ -16,6 +16,7 @@ namespace BaoCao1.Models
     public class Ghichu_TimkiemModel
     {
         public string? search { get; set; }
+        public long? userId { get; set; }
     }
 
 }

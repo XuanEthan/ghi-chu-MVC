@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+        Layout = null;
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -43,6 +46,8 @@
                         setTimeout(function() {
                             window.location.href = "/Ghichus/Index";
                         }, 3000);
+                    }else{
+                       $('#msg').text(resp.message);
                     }
                 })
                 .fail(function (err) {
@@ -60,12 +65,19 @@
                         setTimeout(function() {
                             window.location.href = "/Accounts/Login";
                         }, 3000);
+                    }else{
+                                               $('#msg').text(resp.message);
                     }
                 })
                 .fail(function (err) {
                     console.log(err);
                 });
         }
+
+        function logout(){
+
+        }
+
     </script>
 </body>
 </html>

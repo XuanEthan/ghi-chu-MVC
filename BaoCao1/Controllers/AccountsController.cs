@@ -34,6 +34,7 @@ namespace BaoCao1.Controllers
             if (result.IsSuccess)
             {
                 UserContext.setUserId((long)result.Id!, HttpContext);
+                UserContext.setIsAuthenticated(true, HttpContext);
             }
             return Json(result);
         }
@@ -42,7 +43,6 @@ namespace BaoCao1.Controllers
         [Route("/Accounts/Register")]
         public async Task<IActionResult> Register(User_RegisterModel user_Register)
         {
-            _logger.LogInformation(user_Register.UserName + user_Register.Password + "ok");
             var result = await _userService.Register(user_Register);
             if (result.IsSuccess)
             {

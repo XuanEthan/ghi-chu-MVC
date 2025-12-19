@@ -18,5 +18,19 @@ namespace BaoCao1.Services.Base
             }
             return 0;
         }
+
+        public static void setIsAuthenticated(bool isAuthenticated, HttpContext httpContext)
+        {
+            httpContext.Session.SetString("IsAuthenticated", isAuthenticated.ToString());
+        }
+        public static bool getIsAuthenticated(HttpContext httpContext)
+        {
+            var isAuthenticated = httpContext.Session.GetString("IsAuthenticated");
+            if (isAuthenticated != null)
+            {
+                return bool.Parse(isAuthenticated);
+            }
+            return false;
+        }
     }
 }

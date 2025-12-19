@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IGhichuService, GhichuService>();
 builder.Services.AddTransient<IUserService, UserService>();
 
@@ -33,6 +34,7 @@ app.UseSession();
 
 app.UseCustomAuthentication();
 app.UseRouting();
+
 
 
 app.MapControllerRoute(
