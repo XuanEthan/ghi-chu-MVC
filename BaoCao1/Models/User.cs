@@ -19,7 +19,12 @@ namespace BaoCao1.Models
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
     }
-    
+    public class  User_LoginModel
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+    }
+
     public class User_TimkiemModel
     {
     }

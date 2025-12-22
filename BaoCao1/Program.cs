@@ -1,41 +1,42 @@
-using BaoCao1.Extensions;
+﻿using BaoCao1.Extensions;
 using BaoCao1.Services.Repos;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// 1. Thêm dịch vụ MVC và Accessor
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddTransient<IGhichuService, GhichuService>();
 builder.Services.AddTransient<IUserService, UserService>();
 
-builder.Services.AddDistributedMemoryCache();
 
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(10);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
+// 4. Cấu hình Cookie Authentication
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Accounts/Login";
+        options.LogoutPath = "/Accounts/Logout";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+    });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseSession();
 
-app.UseCustomAuthentication();
-app.UseRouting();
+app.UseRouting(); // 1. Định tuyến trước
 
 
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

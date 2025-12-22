@@ -1,20 +1,19 @@
-﻿@inject IHttpContextAccessor httpContextAccessor;
-@using BaoCao1.Services.Base;
+﻿@using BaoCao1.Services.Base;
 
 @{
     Layout = "_GhichuLayout";
-    var isAuthenticated = common.getIsAuthenticated(httpContextAccessor.HttpContext);
+    // var isAuthenticated = common.getIsAuthenticated(httpContextAccessor.HttpContext);
 }
 
     <div class="topbar">
         <div class="app-name">
             MyNotes
         </div>
-        @if(isAuthenticated)
+        @if(User.Identity != null && User.Identity.IsAuthenticated)
         {
             <div class="ms-auto auth-actions">
                 <a href="/Accounts/Logout" class="btn btn-outline-danger btn-sm">
-                    Đăng xuất
+                <i class="bi bi-box-arrow-right fs-6"></i>
                 </a>
             </div>
         }

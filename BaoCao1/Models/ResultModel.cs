@@ -40,6 +40,9 @@
                 case ResultCode.Tai_khoan_hoac_mat_khau_khong_dung:
                     msg = "Tên tài khoản hoặc mật khẩu không đúng. ";
                     break;
+                case ResultCode.Tai_khoan_hoac_mat_khau_khong_duoc_de_trong:
+                    msg = "Tên tài khoản hoặc mật khẩu không được để trống. ";
+                    break;
                 default:
                     msg = "";
                     break;
@@ -55,6 +58,7 @@
             Khong_ton_tai = 3,
             Ten_Tai_khoan_da_dc_su_dung = 4,
             Tai_khoan_hoac_mat_khau_khong_dung = 5,
+            Tai_khoan_hoac_mat_khau_khong_duoc_de_trong = 6,
         }
 
     }

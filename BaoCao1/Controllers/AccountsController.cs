@@ -2,7 +2,11 @@
 using BaoCao1.Services.Base;
 using BaoCao1.Services.Repos;
 using DevExpress.CodeParser;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace BaoCao1.Controllers
 {
@@ -28,14 +32,20 @@ namespace BaoCao1.Controllers
 
         [HttpPost]
         [Route("/Accounts/Login")]
-        public async Task<IActionResult> Login(User_RegisterModel user_Register)
+        public async Task<IActionResult> Login(User_LoginModel user_Login)
         {
-            var result = await _userService.Login(user_Register);
+            var result = await _userService.Login(user_Login);
             if (result.IsSuccess)
             {
-                common.setUserId((long)result.Id!, HttpContext);
-                common.setIsAuthenticated(true, HttpContext);
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user_Login.UserName),
+                   new Claim(ClaimTypes.NameIdentifier , result.Id.ToString())
+                };
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
             }
+
             return Json(result);
         }
 
@@ -53,10 +63,9 @@ namespace BaoCao1.Controllers
 
 
         [Route("/Accounts/Logout")]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            HttpContext.Session.Clear();
-            Response.Cookies.Delete(".AspNetCore.Session");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Accounts");
         }
     }

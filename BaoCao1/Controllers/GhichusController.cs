@@ -1,19 +1,24 @@
 ﻿using BaoCao1.Models;
 using BaoCao1.Services.Base;
 using BaoCao1.Services.Repos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.WebSockets;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace BaoCao1.Controllers
 {
+    [Authorize]
     public class GhichusController : Controller
     {
         private IGhichuService _ghichuService;
-        public GhichusController(IGhichuService ghichuService)
+        private IUserService _UserService;
+        public GhichusController(IGhichuService ghichuService, IUserService userService)
         {
             _ghichuService = ghichuService;
+            _UserService = userService;
         }
 
         // GET: GhichusController
@@ -27,7 +32,7 @@ namespace BaoCao1.Controllers
         public async Task<ActionResult> List(string? search)
         {
             
-            var filter = new Ghichu_TimkiemModel {search = search , userId = common.getUserId(HttpContext)};
+            var filter = new Ghichu_TimkiemModel {search = search , userId  = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))};
             var list = await _ghichuService.GetAllitems(filter);
 
             return PartialView("List" , list);
@@ -52,7 +57,7 @@ namespace BaoCao1.Controllers
         [Route("/Ghichus/Create")]
         public async Task<IActionResult> Create(Ghichu ghichu)
         {
-            ghichu.UserId = common.getUserId(HttpContext);
+            ghichu.UserId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return Json(await _ghichuService.Insert(ghichu));
         }
 
