@@ -2,7 +2,7 @@
 
 namespace BaoCao1.Services.Base
 {
-    public class UserContext
+    public class common
     {
         public static void setUserId(long userId, HttpContext httpContext)
         {

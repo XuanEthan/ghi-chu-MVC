@@ -43,9 +43,7 @@
                 .done(function (resp) {
                     if(resp.isSuccess) {
                         alert("Đăng nhập thành công!");
-                        setTimeout(function() {
-                            window.location.href = "/Ghichus/Index";
-                        }, 3000);
+                        window.location.href = "/Ghichus/Index";
                     }else{
                        $('#msg').text(resp.message);
                     }
@@ -62,20 +60,14 @@
                 .done(function (resp) {
                     if(resp.isSuccess) {
                         alert("Đăng ký thành công!");
-                        setTimeout(function() {
-                            window.location.href = "/Accounts/Login";
-                        }, 3000);
+                         window.location.href = "/Accounts/Login";
                     }else{
-                                               $('#msg').text(resp.message);
+                        $('#msg').text(resp.message);
                     }
                 })
                 .fail(function (err) {
                     console.log(err);
                 });
-        }
-
-        function logout(){
-
         }
 
     </script>

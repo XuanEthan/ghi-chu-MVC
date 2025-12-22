@@ -70,12 +70,11 @@
         console.log(formData);
         $.post("@(action == 1 ? "/Ghichus/Create":"/Ghichus/Edit")" , formData , (resp) =>{
                 if(resp.isSuccess){
-                    hideModal();
-                    getList();
+                    hideModal(); // hàm ẩn modal
+                    getList(); // hàm tải danh sách bằng cách call ajax đến backend
                 }    
         }).fail(function (err) {
             console.log(err);
-    });
-
+        });
     }
 </script>

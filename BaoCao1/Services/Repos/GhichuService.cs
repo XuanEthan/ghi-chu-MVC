@@ -1,4 +1,5 @@
 ﻿using BaoCao1.Models;
+using DevExpress.XtraRichEdit.Model;
 using ServiceStack.OrmLite;
 using System.Data;
 
@@ -57,8 +58,8 @@ namespace BaoCao1.Services.Repos
             using var db = _ormLiteConnectionFactory.OpenDbConnection();
             var found = db.SingleById<Ghichu>(ghichu.Id);
             if (found == null) { return new ResultModel(false, ResultModel.ResultCode.NotOk, ResultModel.BuildMessage(ResultModel.ResultCode.NotOk)); }
-            found.Tieude = ghichu.Tieude;
-            found.Noidung = ghichu.Noidung;
+            found.Tieude = string.IsNullOrEmpty(ghichu.Tieude) ? "" : ghichu.Tieude;
+            found.Noidung = string.IsNullOrEmpty(ghichu.Noidung) ? "" : ghichu.Noidung;
             await db.UpdateAsync(found);
             return new ResultModel(true , ResultModel.ResultCode.Ok , ResultModel.BuildMessage (ResultModel.ResultCode.Ok) , found.Id , found);
         }

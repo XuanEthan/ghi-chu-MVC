@@ -13,7 +13,7 @@ namespace BaoCao1.Extensions
 
         public async Task InvokeAsync(HttpContext context)
         {
-            var userId = UserContext.getUserId(context);
+            var userId = common.getUserId(context);
             if (userId <= 0)
             {
                 if (!context.Request.Path.StartsWithSegments("/Accounts/Login") && !context.Request.Path.StartsWithSegments("/Accounts/Logout") && !context.Request.Path.StartsWithSegments("/Accounts/Register"))

@@ -27,7 +27,7 @@ namespace BaoCao1.Controllers
         public async Task<ActionResult> List(string? search)
         {
             
-            var filter = new Ghichu_TimkiemModel {search = search , userId = UserContext.getUserId(HttpContext)};
+            var filter = new Ghichu_TimkiemModel {search = search , userId = common.getUserId(HttpContext)};
             var list = await _ghichuService.GetAllitems(filter);
 
             return PartialView("List" , list);
@@ -52,7 +52,7 @@ namespace BaoCao1.Controllers
         [Route("/Ghichus/Create")]
         public async Task<IActionResult> Create(Ghichu ghichu)
         {
-            ghichu.UserId = UserContext.getUserId(HttpContext);
+            ghichu.UserId = common.getUserId(HttpContext);
             return Json(await _ghichuService.Insert(ghichu));
         }
 
@@ -70,7 +70,7 @@ namespace BaoCao1.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Ghichu formData)
         {
-            formData.UserId = UserContext.getUserId(HttpContext);
+            formData.UserId = common.getUserId(HttpContext);
             return Json(await _ghichuService.Update(formData));
         }
 

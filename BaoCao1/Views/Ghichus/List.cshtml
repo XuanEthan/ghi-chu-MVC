@@ -1,37 +1,67 @@
 ﻿@{
     Layout = null;
-    var count = ViewBag.TotalCount as string;
 }
 @model List<Ghichu>
+
 <h5 class="text-muted mb-3">Gần đây</h5>
 
 <div class="row g-3">
+
     @foreach (var item in Model)
     {
-        <div class="col-12 col-md-6 col-xl-4">
-            <div class="card note-card p-3">
-                <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h5 class="card-title fw-bold mb-0 text-truncate" style="max-width: 80%;">@item.Tieude</h5>
+        var isImportant = item.Id % 2 != 0; // fake để demo UI
 
-                    <div class="dropdown note-actions">
-                        <button class="btn btn-sm btn-link text-secondary p-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-three-dots-vertical fs-5"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                            <li><a class="dropdown-item" href="#" onclick="getEditForm(@item.Id)"><i class="bi bi-pencil me-2 text-primary"></i>Sửa</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="#" onclick="deleteItem(@item.Id)"><i class="bi bi-trash3 me-2"></i>Xóa</a></li>
-                        </ul>
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card note-card p-3 h-100">
+
+                <div class="d-flex justify-content-between align-items-start mb-2">
+
+                    <!-- Title -->
+                    <h5 class="card-title fw-bold mb-0 text-truncate" style="max-width: 70%;">
+                        @item.Tieude
+                    </h5>
+
+                    <!-- Actions -->
+                    <div class="d-flex align-items-center gap-2">
+
+                        @* <button class="btn btn-sm btn-link">
+                            <i class="@(isImportant ? "bi bi-star-fill" : "bi bi-star") fs-5"
+                               style="color:#FFD43B"
+                               title="Đánh dấu là quan trọng">
+                            </i>
+                        </button> *@
+                        <!-- Star (display only) -->
+
+                        <!-- Dropdown -->
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-link text-secondary p-0"
+                                    data-bs-toggle="dropdown">
+                                <i class="bi bi-three-dots-vertical fs-5"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                                <li>
+                                    <a class="dropdown-item" href="#" onclick="getEditForm(@item.Id)">
+                                        <i class="bi bi-pencil me-2 text-primary"></i>Sửa
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="#" onclick="deleteItem(@item.Id)">
+                                        <i class="bi bi-trash3 me-2"></i>Xóa
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
                     </div>
+                    @* time *@
                 </div>
+
                 <p class="card-text text-secondary text-truncate">
                     @item.Noidung
                 </p>
-                <div class="mt-auto d-flex justify-content-between align-items-center">
-                </div>
+
             </div>
         </div>
     }
 </div>
-
-

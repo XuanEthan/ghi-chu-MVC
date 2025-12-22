@@ -33,8 +33,8 @@ namespace BaoCao1.Controllers
             var result = await _userService.Login(user_Register);
             if (result.IsSuccess)
             {
-                UserContext.setUserId((long)result.Id!, HttpContext);
-                UserContext.setIsAuthenticated(true, HttpContext);
+                common.setUserId((long)result.Id!, HttpContext);
+                common.setIsAuthenticated(true, HttpContext);
             }
             return Json(result);
         }
@@ -56,6 +56,7 @@ namespace BaoCao1.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
+            Response.Cookies.Delete(".AspNetCore.Session");
             return RedirectToAction("Login", "Accounts");
         }
     }
